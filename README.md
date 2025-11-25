@@ -4,55 +4,55 @@ No intuito de responder tais impasses, foi desenvolvido um sistema simples, dire
 
 ## HISTÓRIAS
 
-###HISTÓRIA 1 — Envio Automático de Solicitação de Feedback 
+### HISTÓRIA 1 — Envio Automático de Solicitação de Feedback 
 
 Ao concluir um curso, o sistema envia automaticamente uma pesquisa de satisfação pelo canal preferido do aluno, garantindo que não haja convites duplicados.
 
-###HISTÓRIA 2 — Avaliação Rápida com Estrelas/Emojis 
+### HISTÓRIA 2 — Avaliação Rápida com Estrelas/Emojis 
 
 O aluno acessa a pesquisa, seleciona uma nota de 1 a 5 e envia o feedback rapidamente; o sistema registra todos os dados do envio.
 
-###HISTÓRIA 3 — Feedback Textual Opcional 
+### HISTÓRIA 3 — Feedback Textual Opcional 
 
 O aluno pode adicionar um comentário opcional de até 500 caracteres, complementando a nota com informações qualitativas.
 
-###HISTÓRIA 4 — Mensagem Personalizada Conforme a Nota 
+### HISTÓRIA 4 — Mensagem Personalizada Conforme a Nota 
 
 Após o envio, o sistema exibe uma mensagem personalizada de agradecimento, neutra ou empática, dependendo da nota.
 
-###HISTÓRIA 5 — Painel de Impacto do Feedback 
+### HISTÓRIA 5 — Painel de Impacto do Feedback 
 
 O aluno pode ver um painel mostrando melhorias que foram implementadas com base nos feedbacks enviados.
 
-###HISTÓRIA 6 — Histórico de Feedbacks 
+### HISTÓRIA 6 — Histórico de Feedbacks 
 
 O aluno pode consultar todos os feedbacks enviados, filtrá-los por curso e buscar comentários.
 
-###HISTÓRIA 7 — Canal Preferido de Comunicação 
+### HISTÓRIA 7 — Canal Preferido de Comunicação 
 
 O aluno configura seu canal preferido (plataforma, e-mail ou WhatsApp); se indisponível, o sistema usa a plataforma como padrão.
 
-###HISTÓRIA 8 — Acesso ao Último Feedback 
+### HISTÓRIA 8 — Acesso ao Último Feedback 
 
 Na tela inicial, o aluno vê um resumo do último feedback enviado e pode acessar o histórico completo.
 
-###HISTÓRIA 9 — Notificação de Nova Pesquisa 
+### HISTÓRIA 9 — Notificação de Nova Pesquisa 
 
 Quando há uma nova pesquisa, o aluno recebe uma notificação visual que o leva diretamente à tela de avaliação.
 
-###HISTÓRIA 10 — Painel Administrativo 
+### HISTÓRIA 10 — Painel Administrativo 
 
 O analista acessa estatísticas gerais: média das notas, quantidade de respostas, distribuição das avaliações e comentários recentes.
 
-###HISTÓRIA 11 — Filtro de Relatórios 
+### HISTÓRIA 11 — Filtro de Relatórios 
 
 O analista pode filtrar dados por curso e período, atualizando relatórios e gráficos dinamicamente.
 
-###HISTÓRIA 12 — Indicadores Visuais 
+### HISTÓRIA 12 — Indicadores Visuais 
 
 São exibidos gráficos de barras e KPIs que mostram a distribuição das notas e a média geral de satisfação.
 
-###HISTÓRIA 13 — Registro de Melhorias 
+### HISTÓRIA 13 — Registro de Melhorias 
 
 O analista registra melhorias baseadas nos feedbacks; essas atualizações aparecem automaticamente para os alunos.
 
