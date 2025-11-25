@@ -3,7 +3,7 @@
 No intuito de responder tais impasses, foi desenvolvido um sistema simples, direto e eficiente para coleta, registro, análise e retorno de feedbacks de alunos após cursos e capacitações, com  surgimento advindo da colaboração entre a organização SEBRAE e estudantes de design e ciência da computação da CESAR SCHOOL visando obter insights reais sobre a experiência dos usuários.
 
 ## HISTÓRIAS
-````
+
 ###HISTÓRIA 1 — Envio Automático de Solicitação de Feedback 
 
 Ao concluir um curso, o sistema envia automaticamente uma pesquisa de satisfação pelo canal preferido do aluno, garantindo que não haja convites duplicados.
@@ -55,7 +55,6 @@ São exibidos gráficos de barras e KPIs que mostram a distribuição das notas 
 ###HISTÓRIA 13 — Registro de Melhorias 
 
 O analista registra melhorias baseadas nos feedbacks; essas atualizações aparecem automaticamente para os alunos.
-````
 
 
 
