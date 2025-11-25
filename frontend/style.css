@@ -1,0 +1,70 @@
+body {
+font-family: Arial, sans-serif;
+padding: 20px;
+background: #fafafa;
+}
+
+
+h1 {
+margin-bottom: 20px;
+}
+
+
+.star-container span,
+.emoji-container span {
+cursor: pointer;
+font-size: 32px;
+margin-right: 5px;
+}
+
+
+.selected {
+color: gold;
+}
+
+
+textarea {
+width: 100%;
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+resize: vertical;
+}
+
+
+button {
+margin-top: 15px;
+padding: 10px 20px;
+background-color: #007bff;
+border: none;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+}
+
+
+button:hover {
+background-color: #0056b3;
+}
+
+
+/* Dashboard */
+
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+background: white;
+}
+
+
+th, td {
+padding: 10px;
+border: 1px solid #ccc;
+}
+
+
+th {
+background-color: #f0f0f0;
+}
