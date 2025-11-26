@@ -20,6 +20,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
+// Rotas amigáveis para outras páginas
+app.get('/feedback', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'feedback.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'login.html'));
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);

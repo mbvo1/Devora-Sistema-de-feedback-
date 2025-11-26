@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback · Nexura</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="feedback-body">
+    <header class="topbar simple-topbar">
+        <div class="container topbar-inner">
+            <div class="logo">Nexura</div>
+            <nav class="nav">
+                <a href="/">Voltar para o site</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="feedback-main reveal">
+        <h1>Avaliação do Serviço</h1>
+
+        <section class="feedback-section">
+            <h3>Avaliação:</h3>
+            <div class="star-container" id="stars">
+                <span data-value="1">★</span>
+                <span data-value="2">★</span>
+                <span data-value="3">★</span>
+                <span data-value="4">★</span>
+                <span data-value="5">★</span>
+            </div>
+        </section>
+
+        <section class="feedback-section">
+            <h3>Como você se sentiu?</h3>
+            <div class="emoji-container" id="emojis">
+                <span data-value="1">😡</span>
+                <span data-value="2">😕</span>
+                <span data-value="3">😐</span>
+                <span data-value="4">🙂</span>
+                <span data-value="5">😄</span>
+            </div>
+        </section>
+
+        <section class="feedback-section">
+            <h3>Comentário (opcional):</h3>
+            <textarea id="comment" cols="40" rows="5" placeholder="Escreva algo..."></textarea>
+        </section>
+
+        <button id="sendBtn" class="btn btn-primary">Enviar Feedback</button>
+    </main>
+
+    <script src="main.js" defer></script>
+    <script src="ui.js" defer></script>
+</body>
+</html>

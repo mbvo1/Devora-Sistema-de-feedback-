@@ -1,51 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Avaliação do Serviço</title>
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexura · Seus projetos são nossas batalhas</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1>Avaliação do Serviço</h1>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="topbar-left">
+                <a href="/login" class="btn btn-login-top">Login</a>
+                <div class="logo">Nexura</div>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="#servicos">Serviços</a>
+                <a href="#portfolio">Portfólio</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="/feedback" class="nav-cta">Deixe seu feedback</a>
+            </nav>
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
+    <main>
+        <!-- Seção hero azul -->
+        <section class="section section-hero" id="servicos">
+            <div class="container hero-grid reveal">
+                <div class="hero-copy">
+                    <h1>Seus projetos são nossas batalhas.</h1>
+                    <p>
+                        O Sabre oferece uma ampla cobertura de serviços com
+                        qualidade e tecnologia, focado para apoiar e impulsionar
+                        o sucesso de pequenos negócios.
+                    </p>
+                    <button class="btn btn-primary" data-scroll-target="#portfolio">
+                        Ver projetos
+                    </button>
+                </div>
+                <div class="hero-cards">
+                    <div class="card-placeholder card-lg"></div>
+                    <div class="card-placeholder card-sm"></div>
+                    <div class="card-placeholder card-sm"></div>
+                    <div class="card-placeholder card-md"></div>
+                </div>
+            </div>
+        </section>
 
-<!-- Estrelas -->
-<div>
-<h3>Avaliação:</h3>
-<div class="star-container" id="stars">
-<span data-value="1">★</span>
-<span data-value="2">★</span>
-<span data-value="3">★</span>
-<span data-value="4">★</span>
-<span data-value="5">★</span>
-</div>
-</div>
+        <!-- Seção de cards azul -->
+        <section class="section section-blue" id="portfolio">
+            <div class="container reveal">
+                <h2>IpsumLorem Ipsum</h2>
+                <div class="cards-grid">
+                    <div class="card-placeholder"></div>
+                    <div class="card-placeholder"></div>
+                    <div class="card-placeholder"></div>
+                    <div class="card-placeholder"></div>
+                    <div class="card-placeholder"></div>
+                    <div class="card-placeholder"></div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Seção laranja com depoimento -->
+        <section class="section section-orange" id="depoimentos">
+            <div class="container section-orange-inner reveal">
+                <div class="testimonial">
+                    <h2>IpsumLorem Ipsum</h2>
+                    <div class="testimonial-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <strong>nome sobrenome</strong>
+                            <div class="stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        IpsumLorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Integer posuere erat a ante.
+                    </p>
+                    <p class="testimonial-contact">
+                        lorem.ipsum@empresa.io<br />
+                        www.loremipsum.com<br />
+                        @loremipsum<br />
+                        www.linkedin.com/in/loremipsum
+                    </p>
+                </div>
+                <div class="orange-cards">
+                    <div class="card-placeholder card-tall"></div>
+                    <div class="card-placeholder card-wide"></div>
+                </div>
+            </div>
+        </section>
 
-<!-- Emojis -->
-<div>
-<h3>Como você se sentiu?</h3>
-<div class="emoji-container" id="emojis">
-<span data-value="1">😡</span>
-<span data-value="2">😕</span>
-<span data-value="3">😐</span>
-<span data-value="4">🙂</span>
-<span data-value="5">😄</span>
-</div>
-</div>
+        <!-- Faixa branca final -->
+        <section class="section section-white">
+            <div class="container footer-strip">
+                <span>Nexura · Sistema de feedback</span>
+                <a href="/login" class="link-muted">Área de login</a>
+            </div>
+        </section>
+    </main>
 
-
-<!-- Comentário -->
-<div>
-<h3>Comentário (opcional):</h3>
-<textarea id="comment" cols="40" rows="5" placeholder="Escreva algo..."></textarea>
-</div>
-
-
-<button id="sendBtn">Enviar Feedback</button>
-
-
-<script src="main.js" defer></script>
+    <script src="ui.js" defer></script>
 </body>
 </html>
