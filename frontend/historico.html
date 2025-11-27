@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Histórico de feedbacks · Nexura</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="feedback-body">
+    <header class="topbar simple-topbar">
+        <div class="container topbar-inner">
+            <div class="logo">Nexura</div>
+            <nav class="nav">
+                <a href="/">Voltar para o site</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="feedback-main reveal">
+     <main class="history-main">
+    <section class="history-header">
+        <h1>Histórico de feedbacks</h1>
+        <p>Aqui você vê todos os feedbacks que já enviou e pode filtrar por curso ou buscar por palavras-chave.</p>
+    </section>
+
+    <section class="history-filters">
+        <div class="filter-group">
+            <label for="filterCurso">Curso:</label>
+            <select id="filterCurso">
+                <option value="">Todos os cursos</option>
+                <!-- As opções serão preenchidas via JS -->
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filterTexto">Buscar nos comentários:</label>
+            <input
+                type="text"
+                id="filterTexto"
+                placeholder="Digite uma palavra ou frase"
+            />
+        </div>
+    </section>
+
+    <section class="history-list">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Curso</th>
+                    <th>Nota</th>
+                    <th>Emoji</th>
+                    <th>Comentário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="historyTableBody">
+                <!-- Linhas preenchidas via JS -->
+            </tbody>
+        </table>
+
+        <p id="historyEmptyMessage" class="history-empty" style="display: none;">
+            Nenhum feedback encontrado com os filtros atuais.
+        </p>
+    </section>
+</main>
+   
+    </main>
+
+    <script src="main.js" defer></script>
+    <script src="ui.js" defer></script>
+</body>
+</html>

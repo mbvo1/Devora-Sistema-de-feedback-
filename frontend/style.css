@@ -396,6 +396,129 @@ a {
 .feedback-section {
     margin-bottom: 20px;
 }
+.feedback-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    display: none; /* começa escondido */
+}
+
+/* Mensagens por tipo */
+.feedback-message--positiva {
+    background: #e6ffed;
+    color: #155724;
+    border: 1px solid #b7f5c8;
+}
+
+.feedback-message--neutra {
+    background: #fff8e6;
+    color: #8a6d3b;
+    border: 1px solid #ffe1a6;
+}
+
+.feedback-message--negativa {
+    background: #ffe6e6;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+.feedback-back-btn {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* ===================== */
+/* Histórico de feedback */
+/* ===================== */
+
+.history-main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 16px 60px;
+}
+
+.history-header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.history-header p {
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.history-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 220px;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+/* Tabela */
+
+.history-list {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.history-table th,
+.history-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.history-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.history-table td:nth-child(3), /* nota */
+.history-table td:nth-child(4)  /* emoji */ {
+    text-align: center;
+}
+
+.history-empty {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
 
 .star-container span,
 .emoji-container span {
@@ -414,6 +537,207 @@ a {
 .selected {
     color: #ffd966;
 }
+/* ===================== */
+/* Detalhe do feedback   */
+/* ===================== */
+
+.detail-main {
+    max-width: 720px;
+    margin: 40px auto 60px;
+    padding: 0 16px;
+}
+
+.detail-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.detail-card h2 {
+    margin-bottom: 8px;
+}
+
+.detail-meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.detail-meta span + span::before {
+    content: "•";
+    margin: 0 6px;
+}
+
+.detail-comentario {
+    margin-top: 12px;
+    font-size: 0.95rem;
+}
+
+.detail-back-link {
+    margin-top: 20px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+/* ===================== */
+/* Último feedback (HUS-011) */
+/* ===================== */
+
+.last-feedback-section {
+    background: #f8f9ff;
+    padding: 48px 0;
+    margin-top: 32px;
+}
+
+.last-feedback-section .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.last-feedback-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.last-feedback-subtitle {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.last-feedback-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+.last-feedback-meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.last-feedback-meta span + span::before {
+    content: "•";
+    margin: 0 6px;
+}
+
+.last-feedback-comentario {
+    margin-top: 8px;
+}
+
+.last-feedback-comentario p {
+    margin-top: 4px;
+}
+
+.last-feedback-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Se já existir .btn, só aproveita.
+   Se não, dá pra ajustar aqui depois */
+.btn.btn-secondary {
+    background: transparent;
+    border: 1px solid #333;
+    color: #333;
+}
+/* ===================== */
+/* Preferências de canal */
+/* ===================== */
+
+.settings-main {
+    max-width: 720px;
+    margin: 40px auto 60px;
+    padding: 0 16px;
+}
+
+.settings-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.settings-card h2 {
+    margin-bottom: 8px;
+}
+
+.settings-description {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+.channel-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+
+.channel-form legend {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.channel-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.channel-option + .channel-option {
+    margin-top: 4px;
+}
+
+.channel-option input[type="radio"] {
+    accent-color: #ff8a2b; /* combina com o laranja do site */
+}
+
+.channel-option:hover {
+    background: #f5f5ff;
+}
+
+.channel-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+}
+
+.channel-label small {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.settings-message {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.settings-message--sucesso {
+    background: #e6ffed;
+    border-color: #b7f5c8;
+    color: #155724;
+}
+
+.settings-message--alerta {
+    background: #fff8e6;
+    border-color: #ffe1a6;
+    color: #8a6d3b;
+}
+
 
 textarea {
     width: 100%;
