@@ -56,6 +56,9 @@ function getQueryParam(name) {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
 }
+// Chave usada para guardar o canal preferido no navegador (simula persistência até a API ficar pronta)
+const CANAL_PREFERIDO_KEY = 'nexura_canal_preferido';
+
 
 // Mostra uma mensagem de acordo com a nota + botão Voltar ao menu
 function mostrarMensagemPorNota(nota) {
@@ -229,7 +232,118 @@ if (detalheContainer) {
     }
 }
 
+// =========================
+// Último feedback na home (HUS-011)
+// =========================
 
+const lastFeedbackCard = document.getElementById('lastFeedbackCard');
+
+if (lastFeedbackCard) {
+    if (!mockFeedbacks.length) {
+        lastFeedbackCard.innerHTML = `
+            <p>Você ainda não possui feedbacks registrados.</p>
+        `;
+    } else {
+        // Garante que está do mais recente para o mais antigo
+        const ordenados = [...mockFeedbacks].sort((a, b) => {
+            return new Date(b.data) - new Date(a.data);
+        });
+
+        const ultimo = ordenados[0];
+
+        lastFeedbackCard.innerHTML = `
+            <div class="last-feedback-meta">
+                <span><strong>Curso:</strong> ${ultimo.curso}</span>
+                <span><strong>Data:</strong> ${ultimo.data}</span>
+                <span><strong>Nota:</strong> ${ultimo.nota} ${ultimo.emoji}</span>
+            </div>
+            <div class="last-feedback-comentario">
+                <strong>Comentário:</strong>
+                <p>${ultimo.comentario || 'Nenhum comentário foi informado.'}</p>
+            </div>
+        `;
+    }
+}
+// =========================
+// Preferências de canal (HUS-008)
+// =========================
+
+const canalForm = document.getElementById('canalForm');
+const salvarCanalBtn = document.getElementById('salvarCanalBtn');
+const canalMessage = document.getElementById('canalMessage');
+
+if (canalForm && salvarCanalBtn && canalMessage) {
+
+    // Carrega o canal salvo (ou plataforma como padrão)
+    const canalSalvo = localStorage.getItem(CANAL_PREFERIDO_KEY) || 'plataforma';
+
+    const radios = canalForm.querySelectorAll('input[name="canal"]');
+    radios.forEach(r => {
+        r.checked = r.value === canalSalvo;
+    });
+
+    const mostrarMensagem = (texto, tipo) => {
+        canalMessage.textContent = texto;
+        canalMessage.className = 'settings-message'; // reseta
+        if (tipo === 'sucesso') {
+            canalMessage.classList.add('settings-message--sucesso');
+        } else if (tipo === 'alerta') {
+            canalMessage.classList.add('settings-message--alerta');
+        }
+        canalMessage.style.display = 'block';
+    };
+
+    // Função que, no futuro, pode usar resposta do backend pra saber indisponibilidade
+    const verificarDisponibilidadeCanal = (canal) => {
+        // Por enquanto, assume que todos estão disponíveis.
+        // Quando o backend informar indisponibilidade, você pode ajustar aqui.
+        return { disponivel: true, canalFallback: 'plataforma' };
+
+        // EXEMPLO se quiser simular WhatsApp indisponível:
+        // if (canal === 'whatsapp') {
+        //   return { disponivel: false, canalFallback: 'plataforma' };
+        // }
+        // return { disponivel: true, canalFallback: canal };
+    };
+
+    salvarCanalBtn.addEventListener('click', () => {
+        const selecionado = canalForm.querySelector('input[name="canal"]:checked');
+        if (!selecionado) return;
+
+        let canalEscolhido = selecionado.value;
+        const { disponivel, canalFallback } = verificarDisponibilidadeCanal(canalEscolhido);
+
+        if (!disponivel) {
+            // AC4 (estrutura pronta): canal indisponível → usa plataforma e avisa
+            canalEscolhido = canalFallback;
+            // atualiza seleção visual
+            radios.forEach(r => {
+                r.checked = r.value === canalEscolhido;
+            });
+            mostrarMensagem(
+                'Canal selecionado indisponível. O envio será feito pela plataforma.',
+                'alerta'
+            );
+        } else {
+            // Salva no localStorage (simulação de persistência até ter API)
+            localStorage.setItem(CANAL_PREFERIDO_KEY, canalEscolhido);
+
+            // AC3: mensagem de confirmação
+            mostrarMensagem(
+                'Seu canal preferido foi atualizado com sucesso.',
+                'sucesso'
+            );
+        }
+
+        // TODO (integração futura):
+        // aqui é o ponto ideal para chamar a API:
+        // fetch('/api/canal-preferido', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ canal: canalEscolhido })
+        // });
+    });
+}
 
 // Verifica se é a página de feedback
 if (document.getElementById("sendBtn")) {

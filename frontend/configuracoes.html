@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Nexura - Preferências de comunicação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <h1 class="logo">Nexura</h1>
+            <nav class="nav">
+                <a href="/index.html">Início</a>
+                <a href="/historico.html">Histórico</a>
+                <a href="/feedback">Deixar feedback</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="settings-main">
+        <section class="settings-card">
+            <h2>Preferências de comunicação</h2>
+            <p class="settings-description">
+                Escolha por qual canal você prefere receber as solicitações de feedback.
+            </p>
+
+            <form id="canalForm" class="channel-form">
+                <fieldset>
+                    <legend>Canal preferido</legend>
+
+                    <label class="channel-option">
+                        <input
+                            type="radio"
+                            name="canal"
+                            value="plataforma"
+                            checked
+                        />
+                        <span class="channel-label">
+                            <strong>Plataforma</strong>
+                            <small>(padrão)</small>
+                        </span>
+                    </label>
+
+                    <label class="channel-option">
+                        <input
+                            type="radio"
+                            name="canal"
+                            value="email"
+                        />
+                        <span class="channel-label">
+                            <strong>E-mail</strong>
+                        </span>
+                    </label>
+
+                    <label class="channel-option">
+                        <input
+                            type="radio"
+                            name="canal"
+                            value="whatsapp"
+                        />
+                        <span class="channel-label">
+                            <strong>WhatsApp</strong>
+                        </span>
+                    </label>
+                </fieldset>
+
+                <button type="button" id="salvarCanalBtn" class="btn btn-primary">
+                    Salvar preferências
+                </button>
+            </form>
+
+            <div id="canalMessage" class="settings-message" style="display: none;"></div>
+        </section>
+    </main>
+
+    <script src="/main.js"></script>
+</body>
+</html>
