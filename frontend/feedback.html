@@ -17,7 +17,8 @@
     </header>
 
     <main class="feedback-main reveal">
-        <h1>Avaliação do Serviço</h1>
+        <h1>Avaliação do curso</h1>
+        <p id="feedbackCourseInfo" class="feedback-course-info"></p>
 
         <section class="feedback-section">
             <h3>Avaliação:</h3>
@@ -42,13 +43,19 @@
         </section>
 
         <section class="feedback-section">
-    <h3>Comentário (opcional):</h3>
-    <textarea id="comment" cols="40" rows="5" placeholder="Escreva algo..."></textarea>
-</section>
+            <h3>Comentário (opcional):</h3>
+            <textarea
+                id="comment"
+                cols="40"
+                rows="5"
+                maxlength="500"
+                placeholder="Escreva algo... (até 500 caracteres)"
+            ></textarea>
+        </section>
 
-<button id="sendBtn" class="btn btn-primary">Enviar Feedback</button>
+        <button id="sendBtn" class="btn btn-primary" disabled>Enviar feedback</button>
 
-<div id="feedbackMessage" class="feedback-message"></div>
+        <div id="feedbackMessage" class="feedback-message"></div>
     </main>
 
     <script src="main.js" defer></script>

@@ -25,8 +25,16 @@ app.get('/feedback', (req, res) => {
     res.sendFile(path.join(frontendPath, 'feedback.html'));
 });
 
+app.get('/feedback-confirmacao', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'feedback-confirmacao.html'));
+});
+
 app.get('/login', (req, res) => {
     res.sendFile(path.join(frontendPath, 'login.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'admin.html'));
 });
 
 const PORT = 3000;

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de relatórios · Nexura</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="main.js" defer></script>
+</head>
+<body class="admin-body">
+    <div class="admin-shell">
+        <header class="admin-banner">
+            <div class="admin-logo-block">
+                <div class="admin-logo-mark">
+                    <span></span><span></span>
+                    <span></span><span></span>
+                </div>
+                <span class="admin-logo-text">Nexura</span>
+            </div>
+            <nav class="admin-tabs">
+                <a href="#painel" class="admin-tab admin-tab--active">Painel de Relatório</a>
+                <a href="#recentes" class="admin-tab">Avaliações Recentes</a>
+                <a href="#melhorias" class="admin-tab">Registro de Melhorias</a>
+            </nav>
+        </header>
+
+        <main class="admin-main">
+            <section id="adminNoData" class="admin-empty" style="display: none;">
+                Ainda não há dados suficientes para gerar relatórios.
+            </section>
+
+            <section id="adminContent" style="display: none;">
+                <!-- Painel principal -->
+                <section id="painel" class="admin-section">
+                    <h1 class="admin-section-title">Painel de Relatórios</h1>
+                    <div class="admin-card admin-card-panel">
+                        <div class="admin-panel-left">
+                            <p><strong id="kpiTotalFeedbacks">0</strong> Avaliações</p>
+                            <p><strong id="kpiTotalPositivas">0</strong> Avaliações Positivas</p>
+                            <p id="adminResumoTexto" class="admin-panel-text">
+                                De x a xx% Bom! Mas possivelmente existem muitas oportunidades de melhorias.
+                            </p>
+
+                            <canvas
+                                id="chartDistribuicaoNotas"
+                                class="admin-bar-chart"
+                                aria-label="Distribuição das notas de 1 a 5"
+                            ></canvas>
+                        </div>
+                        <div class="admin-panel-right">
+                            <div class="admin-gauge-wrapper">
+                                <canvas id="chartGaugeMedia"></canvas>
+                                <div class="admin-gauge-label">
+                                    <span id="kpiMediaGeral">-</span>
+                                    <small>Média geral</small>
+                                </div>
+                            </div>
+                            <div class="admin-mini-gauges">
+                                <div class="mini-gauge mini-gauge--ruim">
+                                    <span>1–2</span>
+                                    <div class="mini-gauge-bar"><div class="mini-gauge-fill" id="miniGaugeRuim"></div></div>
+                                </div>
+                                <div class="mini-gauge mini-gauge--neutro">
+                                    <span>3</span>
+                                    <div class="mini-gauge-bar"><div class="mini-gauge-fill" id="miniGaugeNeutro"></div></div>
+                                </div>
+                                <div class="mini-gauge mini-gauge--bom">
+                                    <span>4–5</span>
+                                    <div class="mini-gauge-bar"><div class="mini-gauge-fill" id="miniGaugeBom"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Avaliações recentes -->
+                <section id="recentes" class="admin-section">
+                    <h2 class="admin-section-title">Avaliações Recentes</h2>
+                    <div class="admin-card admin-card-recentes">
+                        <div class="admin-recentes-left">
+                            <ul class="rating-bars">
+                                <li data-score="5">
+                                    <span>5</span>
+                                    <div class="rating-bar"><div id="ratingBar5" class="rating-bar-fill"></div></div>
+                                </li>
+                                <li data-score="4">
+                                    <span>4</span>
+                                    <div class="rating-bar"><div id="ratingBar4" class="rating-bar-fill"></div></div>
+                                </li>
+                                <li data-score="3">
+                                    <span>3</span>
+                                    <div class="rating-bar"><div id="ratingBar3" class="rating-bar-fill"></div></div>
+                                </li>
+                                <li data-score="2">
+                                    <span>2</span>
+                                    <div class="rating-bar"><div id="ratingBar2" class="rating-bar-fill"></div></div>
+                                </li>
+                                <li data-score="1">
+                                    <span>1</span>
+                                    <div class="rating-bar"><div id="ratingBar1" class="rating-bar-fill"></div></div>
+                                </li>
+                            </ul>
+
+                            <div class="rating-media">
+                                <div class="rating-media-score" id="ratingMediaTexto">-</div>
+                                <div class="rating-media-stars" id="ratingMediaStars">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="admin-recentes-right" id="recentFeedbackList">
+                            <!-- Itens preenchidos via JS -->
+                        </div>
+
+                        <div class="admin-resumo-wrapper">
+                            <table id="tabelaResumoNotas" class="admin-resumo-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nota</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Registro de melhorias (mock visual) -->
+                <section id="melhorias" class="admin-section">
+                    <h2 class="admin-section-title">Registro de Melhorias</h2>
+                    <div class="admin-card admin-card-melhorias">
+                        <ul id="listaMelhorias" class="melhorias-list">
+                            <!-- Preenchido via JS com base em comentários recentes -->
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Elemento oculto apenas para manter compatibilidade com scripts anteriores -->
+                <table id="feedbackTable" style="display:none;">
+                    <tbody id="feedbackTableBody"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

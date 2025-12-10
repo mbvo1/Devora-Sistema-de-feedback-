@@ -393,6 +393,12 @@ a {
     margin-bottom: 24px;
 }
 
+.feedback-course-info {
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
 .feedback-section {
     margin-bottom: 20px;
 }
@@ -517,6 +523,361 @@ a {
     margin-top: 12px;
     font-size: 0.9rem;
     color: #666;
+}
+
+/* ===================== */
+/* Painel administrativo */
+/* ===================== */
+
+body.admin-body {
+    background: #202020;
+}
+
+.admin-shell {
+    max-width: 960px;
+    margin: 16px auto;
+    min-height: calc(100vh - 32px);
+    background: #fff7dc;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-banner {
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 32px;
+}
+
+.admin-logo-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-logo-mark {
+    display: grid;
+    grid-template-columns: repeat(2, 16px);
+    grid-auto-rows: 16px;
+    gap: 4px;
+}
+
+.admin-logo-mark span {
+    background: #fff;
+}
+
+.admin-logo-text {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 8px;
+}
+
+.admin-tab {
+    background: #3b45a5;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.admin-tab--active {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+.admin-main {
+    flex: 1;
+    padding: 32px 32px 40px;
+}
+
+.admin-empty {
+    padding: 16px 18px;
+    border-radius: 8px;
+    background: #fff8e6;
+    border: 1px solid #ffe1a6;
+    color: #8a6d3b;
+    font-size: 0.95rem;
+}
+
+.admin-section {
+    margin-bottom: 32px;
+}
+
+.admin-section-title {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    color: var(--blue);
+}
+
+.admin-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-card-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+    gap: 24px;
+    background: #e1e4f2;
+}
+
+.admin-panel-left p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.admin-panel-left strong {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: var(--blue);
+}
+
+.admin-panel-text {
+    margin-top: 8px;
+    max-width: 260px;
+    font-size: 0.9rem;
+}
+
+.admin-panel-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-gauge-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 260px;
+}
+
+.admin-gauge-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+    font-weight: 700;
+    color: #222;
+}
+
+.admin-gauge-label span {
+    font-size: 1.4rem;
+}
+
+.admin-gauge-label small {
+    font-size: 0.8rem;
+}
+
+.admin-mini-gauges {
+    width: 100%;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.mini-gauge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+}
+
+.mini-gauge-bar {
+    flex: 1;
+    height: 6px;
+    background: #d4d6e5;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.mini-gauge-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+}
+
+.mini-gauge--ruim .mini-gauge-fill {
+    background: #e63946;
+}
+
+.mini-gauge--neutro .mini-gauge-fill {
+    background: #f1c40f;
+}
+
+.mini-gauge--bom .mini-gauge-fill {
+    background: #2ecc71;
+}
+
+.admin-bar-chart {
+    width: 100%;
+    max-width: 260px;
+    margin-top: 12px;
+}
+
+.admin-card-recentes {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 24px;
+    background: #e1e4f2;
+}
+
+.admin-recentes-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rating-bars {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+
+.rating-bars li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+}
+
+.rating-bar {
+    flex: 1;
+    height: 4px;
+    background: #d4d6e5;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.rating-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #ffd900;
+}
+
+.rating-media {
+    margin-top: 8px;
+}
+
+.rating-media-score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffd900;
+}
+
+.rating-media-stars {
+    color: #ffd900;
+    font-size: 1.4rem;
+}
+
+.admin-recentes-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recent-feedback-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.recent-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+.recent-feedback-info strong {
+    font-size: 0.95rem;
+}
+
+.recent-feedback-meta {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.recent-feedback-stars {
+    color: #ffd900;
+    font-size: 1rem;
+}
+
+.admin-card-melhorias {
+    background: #e1e4f2;
+}
+
+.admin-resumo-wrapper {
+    margin-top: 12px;
+}
+
+.admin-resumo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.admin-resumo-table th,
+.admin-resumo-table td {
+    padding: 4px 6px;
+    border-bottom: 1px solid #d4d6e5;
+}
+
+.admin-resumo-table th {
+    text-align: left;
+    color: #555;
+}
+
+.melhorias-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.melhoria-item {
+    display: flex;
+    gap: 12px;
+}
+
+.melhoria-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+.melhoria-textos strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.melhoria-textos p {
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.melhoria-stars {
+    color: #ffd900;
+    font-size: 0.9rem;
+    margin-top: 2px;
+}
 }
 
 

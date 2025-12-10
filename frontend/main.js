@@ -98,6 +98,13 @@ function mostrarMensagemPorNota(nota) {
         });
     }
 }
+
+// Se houver parâmetro de nota na URL e um container de mensagem,
+// exibe automaticamente o texto de confirmação (tela FBK-04).
+const notaParamConfirmacao = getQueryParam('nota');
+if (notaParamConfirmacao && document.getElementById('feedbackMessage') && !document.getElementById('sendBtn')) {
+    mostrarMensagemPorNota(notaParamConfirmacao);
+}
 // =========================
 // Página de Histórico (HUS-007)
 // =========================
@@ -345,79 +352,424 @@ if (canalForm && salvarCanalBtn && canalMessage) {
     });
 }
 
-// Verifica se é a página de feedback
-if (document.getElementById("sendBtn")) {
-
-
-// Seleção de estrelas
-document.querySelectorAll('#stars span').forEach(star => {
-star.addEventListener('click', () => {
-selectedStar = star.getAttribute('data-value');
-document.querySelectorAll('#stars span').forEach(s => s.classList.remove('selected'));
-star.classList.add('selected');
-});
-});
-
-
-// Seleção de emojis
-document.querySelectorAll('#emojis span').forEach(emoji => {
-emoji.addEventListener('click', () => {
-selectedEmoji = emoji.getAttribute('data-value');
-document.querySelectorAll('#emojis span').forEach(e => e.classList.remove('selected'));
-emoji.classList.add('selected');
-});
-});
-
-// Enviar feedback
-document.getElementById('sendBtn').addEventListener('click', async () => {
-    const comment = document.getElementById('comment').value;
-
-    // Descobre o tipo de mensagem com base na nota escolhida
-    const tipoMensagem = obterTipoMensagem(selectedStar);
-
-    const payload = {
-        estrelas: selectedStar,
-        emoji: selectedEmoji,
-        comentario: comment,
-        tipoMensagem: tipoMensagem
-    };
-
-    try {
-        const response = await fetch('http://localhost:3000/api/feedback', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error('Erro ao enviar feedback');
-        }
-
-        // Mostra a mensagem personalizada conforme a nota
-        mostrarMensagemPorNota(selectedStar);
-
-        // Opcional: limpar comentário e desmarcar estrela/emoji
-        const commentEl = document.getElementById('comment');
-        if (commentEl) commentEl.value = '';
-
-        document
-            .querySelectorAll('#stars span, #emojis span')
-            .forEach(el => el.classList.remove('selected'));
-
-        selectedStar = null;
-        selectedEmoji = null;
-
-    } catch (error) {
-        alert('Erro ao enviar feedback.');
-        console.error(error);
-    }
-});
-
+// =========================
+// Login simples do administrador (fluxo de navegação)
+// =========================
+const loginBtn = document.getElementById('loginBtn');
+if (loginBtn) {
+    loginBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        // Futuramente, aqui entraria a validação real de credenciais.
+        // Por enquanto, apenas navegamos para o painel administrativo.
+        window.location.href = '/admin.html';
+    });
 }
 
+// Verifica se é a página de feedback
+if (document.getElementById('sendBtn')) {
+    const sendBtn = document.getElementById('sendBtn');
+    const commentEl = document.getElementById('comment');
+    const feedbackBox = document.getElementById('feedbackMessage');
+    const courseInfoEl = document.getElementById('feedbackCourseInfo');
 
-// Verifica se é a página do admin
-if (document.getElementById("feedbackTable")) {
-// Exemplo de carregamento futuro (fake por enquanto)
-console.log("Dashboard pronto para integração com o backend.");
+    // Lê parâmetros de curso/usuário vindos do link de convite (HUS-001 + HUS-002)
+    const cursoNomeParam = getQueryParam('cursoNome');
+    const cursoIdParam = getQueryParam('cursoId');
+    const usuarioIdParam = getQueryParam('usuarioId');
+
+    if (courseInfoEl) {
+        if (cursoNomeParam) {
+            courseInfoEl.textContent = `Você está avaliando o curso "${cursoNomeParam}".`;
+        } else {
+            courseInfoEl.textContent =
+                'Sua opinião ajuda a melhorar os próximos cursos. Selecione uma nota de 1 a 5.';
+        }
+    }
+
+    const canalPreferido = localStorage.getItem(CANAL_PREFERIDO_KEY) || 'plataforma';
+
+    const atualizarEstadoBotao = () => {
+        const notaSelecionada = selectedStar || selectedEmoji;
+        if (sendBtn) {
+            sendBtn.disabled = !notaSelecionada;
+        }
+    };
+
+    const mostrarErroEnvio = () => {
+        const mensagem =
+            'Não foi possível registrar sua avaliação. Tente novamente mais tarde.';
+
+        if (feedbackBox) {
+            feedbackBox.className = 'feedback-message';
+            feedbackBox.style.display = 'block';
+            feedbackBox.textContent = mensagem;
+        } else {
+            alert(mensagem);
+        }
+    };
+
+    // Seleção de estrelas
+    document.querySelectorAll('#stars span').forEach((star) => {
+        star.addEventListener('click', () => {
+            selectedStar = star.getAttribute('data-value');
+            document
+                .querySelectorAll('#stars span')
+                .forEach((s) => s.classList.remove('selected'));
+            star.classList.add('selected');
+            atualizarEstadoBotao();
+        });
+    });
+
+    // Seleção de emojis
+    document.querySelectorAll('#emojis span').forEach((emojiEl) => {
+        emojiEl.addEventListener('click', () => {
+            selectedEmoji = emojiEl.getAttribute('data-value');
+            document
+                .querySelectorAll('#emojis span')
+                .forEach((e) => e.classList.remove('selected'));
+            emojiEl.classList.add('selected');
+            atualizarEstadoBotao();
+        });
+    });
+
+    // Enviar feedback
+    sendBtn.addEventListener('click', async () => {
+        const notaSelecionada = selectedStar || selectedEmoji;
+        if (!notaSelecionada) {
+            atualizarEstadoBotao();
+            return;
+        }
+
+        const comentario = commentEl ? commentEl.value : '';
+
+        // Descobre o tipo de mensagem com base na nota escolhida
+        const tipoMensagem = obterTipoMensagem(notaSelecionada);
+
+        const payload = {
+            estrelas: notaSelecionada,
+            emoji: selectedEmoji,
+            comentario,
+            tipoMensagem,
+            cursoId: cursoIdParam,
+            cursoNome: cursoNomeParam,
+            usuarioId: usuarioIdParam,
+            canal: canalPreferido
+        };
+
+        try {
+            sendBtn.disabled = true;
+
+            const response = await fetch('http://localhost:3000/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao enviar feedback');
+            }
+
+            // Redireciona para a tela de confirmação com a nota (AC4)
+            window.location.href = `/feedback-confirmacao.html?nota=${encodeURIComponent(
+                notaSelecionada
+            )}`;
+        } catch (error) {
+            console.error(error);
+            mostrarErroEnvio(); // AC5
+            atualizarEstadoBotao();
+        }
+    });
+}
+
+// =========================
+// Painel administrativo (HUS-005)
+// =========================
+
+if (document.getElementById('adminContent')) {
+    const adminNoData = document.getElementById('adminNoData');
+    const adminContent = document.getElementById('adminContent');
+    const kpiMediaGeral = document.getElementById('kpiMediaGeral');
+    const kpiTotalFeedbacks = document.getElementById('kpiTotalFeedbacks');
+    const kpiTotalPositivas = document.getElementById('kpiTotalPositivas');
+    const resumoTextoEl = document.getElementById('adminResumoTexto');
+
+    const miniGaugeRuim = document.getElementById('miniGaugeRuim');
+    const miniGaugeNeutro = document.getElementById('miniGaugeNeutro');
+    const miniGaugeBom = document.getElementById('miniGaugeBom');
+
+    const ratingBars = {
+        1: document.getElementById('ratingBar1'),
+        2: document.getElementById('ratingBar2'),
+        3: document.getElementById('ratingBar3'),
+        4: document.getElementById('ratingBar4'),
+        5: document.getElementById('ratingBar5')
+    };
+
+    const ratingMediaTextoEl = document.getElementById('ratingMediaTexto');
+    const ratingMediaStarsEl = document.getElementById('ratingMediaStars');
+    const recentFeedbackList = document.getElementById('recentFeedbackList');
+    const melhoriasList = document.getElementById('listaMelhorias');
+
+    const chartGaugeEl = document.getElementById('chartGaugeMedia');
+    const chartDistribuicaoEl = document.getElementById('chartDistribuicaoNotas');
+    const tabelaResumoNotasBody = document.querySelector('#tabelaResumoNotas tbody');
+
+    let chartGauge = null;
+    let chartDistribuicao = null;
+
+    const formatarData = (isoString) => {
+        if (!isoString) return '-';
+        const data = new Date(isoString);
+        if (Number.isNaN(data.getTime())) return '-';
+        return data.toLocaleDateString('pt-BR');
+    };
+
+    const gerarEstrelas = (nota) => {
+        const valor = Math.round(Number(nota) || 0);
+        const cheio = Math.max(0, Math.min(5, valor));
+        return '★★★★★'.slice(0, cheio);
+    };
+
+    const atualizarGauge = (mediaGeral) => {
+        if (!window.Chart || !chartGaugeEl) return;
+
+        const valor = Math.max(0, Math.min(5, Number(mediaGeral) || 0));
+        const datasetData = [valor, Math.max(0, 5 - valor)];
+
+        if (chartGauge) {
+            chartGauge.data.datasets[0].data = datasetData;
+            chartGauge.update();
+        } else {
+            chartGauge = new Chart(chartGaugeEl, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Satisfação', ''],
+                    datasets: [
+                        {
+                            data: datasetData,
+                            backgroundColor: ['#28a745', '#e1e4f2'],
+                            borderWidth: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    rotation: -Math.PI,
+                    circumference: Math.PI,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+        }
+    };
+
+    const atualizarDistribuicoes = (distribuicaoNotas, totalFeedbacks) => {
+        const dist = distribuicaoNotas || {};
+        const total = totalFeedbacks || 0;
+        const negativo = (dist[1] || 0) + (dist[2] || 0);
+        const neutro = dist[3] || 0;
+        const positivo = (dist[4] || 0) + (dist[5] || 0);
+
+        if (kpiTotalPositivas) {
+            kpiTotalPositivas.textContent = positivo;
+        }
+
+        const percentualPositivo = total ? Math.round((positivo / total) * 100) : 0;
+
+        if (resumoTextoEl) {
+            resumoTextoEl.textContent =
+                percentualPositivo >= 70
+                    ? `De ${percentualPositivo}% a ${percentualPositivo}% Excelente! Continuar reforçando os pontos fortes.`
+                    : `De ${percentualPositivo}% a ${percentualPositivo}% Bom! Mas possivelmente existem muitas oportunidades de melhorias.`;
+        }
+
+        const aplicarLargura = (el, valor) => {
+            if (!el) return;
+            const percentual = total ? (valor / total) * 100 : 0;
+            el.style.width = `${percentual}%`;
+        };
+
+        aplicarLargura(miniGaugeRuim, negativo);
+        aplicarLargura(miniGaugeNeutro, neutro);
+        aplicarLargura(miniGaugeBom, positivo);
+
+        const labels = [1, 2, 3, 4, 5];
+
+        labels.forEach((nota) => {
+            aplicarLargura(ratingBars[nota], dist[nota] || 0);
+        });
+
+        // Atualiza gráfico de barras (Chart.js)
+        if (window.Chart && chartDistribuicaoEl) {
+            const dadosBarras = labels.map((nota) => dist[nota] || 0);
+
+            if (chartDistribuicao) {
+                chartDistribuicao.data.datasets[0].data = dadosBarras;
+                chartDistribuicao.update();
+            } else {
+                chartDistribuicao = new Chart(chartDistribuicaoEl, {
+                    type: 'bar',
+                    data: {
+                        labels: labels.map((n) => String(n)),
+                        datasets: [
+                            {
+                                label: 'Quantidade de respostas',
+                                data: dadosBarras,
+                                backgroundColor: '#ffd900'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: { precision: 0 }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Atualiza tabela resumo de notas
+        if (tabelaResumoNotasBody) {
+            tabelaResumoNotasBody.innerHTML = '';
+            labels.forEach((nota) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${nota}</td><td>${dist[nota] || 0}</td>`;
+                tabelaResumoNotasBody.appendChild(tr);
+            });
+        }
+    };
+
+    const preencherRecentesEMelhorias = (comentariosRecentes = []) => {
+        if (recentFeedbackList) {
+            recentFeedbackList.innerHTML = '';
+
+            comentariosRecentes.slice(0, 3).forEach((fb, index) => {
+                const item = document.createElement('div');
+                item.className = 'recent-feedback-item';
+                const nomeBase = fb.cursoNome || `Curso ${index + 1}`;
+
+                item.innerHTML = `
+                    <div class="recent-avatar"></div>
+                    <div class="recent-feedback-info">
+                        <strong>${nomeBase}</strong>
+                        <div class="recent-feedback-meta">
+                            ${formatarData(fb.data)} • Nota ${fb.estrelas || '-'}
+                        </div>
+                        <div class="recent-feedback-stars">
+                            ${gerarEstrelas(fb.estrelas)}
+                        </div>
+                    </div>
+                `;
+
+                recentFeedbackList.appendChild(item);
+            });
+        }
+
+        if (melhoriasList) {
+            melhoriasList.innerHTML = '';
+
+            const melhorias = comentariosRecentes
+                .filter((fb) => fb.comentario && fb.comentario.trim() !== '')
+                .slice(0, 3);
+
+            melhorias.forEach((fb, index) => {
+                const li = document.createElement('li');
+                li.className = 'melhoria-item';
+
+                const nomeBase = fb.cursoNome || `Curso ${index + 1}`;
+                const snippet =
+                    fb.comentario.length > 90
+                        ? `${fb.comentario.slice(0, 87)}...`
+                        : fb.comentario;
+
+                li.innerHTML = `
+                    <div class="melhoria-avatar"></div>
+                    <div class="melhoria-textos">
+                        <strong>${nomeBase}</strong>
+                        <p>"${snippet}"</p>
+                        <div class="melhoria-stars">
+                            ${gerarEstrelas(fb.estrelas)}
+                        </div>
+                    </div>
+                `;
+
+                melhoriasList.appendChild(li);
+            });
+        }
+    };
+
+    const atualizarRelatorio = async () => {
+        try {
+            const resposta = await fetch('/api/relatorios/resumo');
+            const dados = await resposta.json();
+
+            if (!resposta.ok || dados.sucesso === false) {
+                throw new Error(dados.erro || 'Erro ao carregar relatório');
+            }
+
+            const { totalFeedbacks, mediaGeral, distribuicaoNotas, comentariosRecentes } = dados;
+
+            if (!totalFeedbacks) {
+                if (adminNoData) adminNoData.style.display = 'block';
+                if (adminContent) adminContent.style.display = 'none';
+                return;
+            }
+
+            if (adminNoData) adminNoData.style.display = 'none';
+            if (adminContent) adminContent.style.display = 'block';
+
+            if (kpiTotalFeedbacks) {
+                kpiTotalFeedbacks.textContent = totalFeedbacks;
+            }
+
+            if (kpiMediaGeral) {
+                const valorFormatado =
+                    typeof mediaGeral === 'number' && !Number.isNaN(mediaGeral)
+                        ? mediaGeral.toFixed(1).replace('.', ',')
+                        : '-';
+                kpiMediaGeral.textContent = valorFormatado;
+            }
+
+            if (ratingMediaTextoEl) {
+                const valor =
+                    typeof mediaGeral === 'number' && !Number.isNaN(mediaGeral)
+                        ? mediaGeral.toFixed(1)
+                        : '-';
+                ratingMediaTextoEl.textContent = valor;
+            }
+
+            if (ratingMediaStarsEl) {
+                ratingMediaStarsEl.textContent = gerarEstrelas(mediaGeral);
+            }
+
+            atualizarGauge(mediaGeral);
+            atualizarDistribuicoes(distribuicaoNotas, totalFeedbacks);
+            preencherRecentesEMelhorias(comentariosRecentes);
+        } catch (erro) {
+            console.error('Erro ao atualizar relatório:', erro);
+            if (adminNoData) {
+                adminNoData.style.display = 'block';
+                adminNoData.textContent =
+                    'Não foi possível carregar os relatórios no momento. Tente novamente mais tarde.';
+            }
+            if (adminContent) adminContent.style.display = 'none';
+        }
+    };
+
+    // Carrega imediatamente e configura atualização automática (AC2)
+    atualizarRelatorio();
+    setInterval(atualizarRelatorio, 15000);
 }
